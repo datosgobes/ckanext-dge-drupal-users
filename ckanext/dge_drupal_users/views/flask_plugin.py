@@ -15,10 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# this is a namespace package
-try:
-    import pkg_resources
-    pkg_resources.declare_namespace(__name__)
-except ImportError:
-    import pkgutil
-    __path__ = pkgutil.extend_path(__path__, __name__)
+# -*- coding: utf-8 -*-
+
+import ckan.plugins as p
+import ckanext.dge_drupal_users.views.dgeDrupalUsers as dge_drupalUsers_bl
+
+class DGEDrupalUsersPlugins(p.SingletonPlugin):
+    p.implements(p.IBlueprint)
+
+    # IBlueprint
+
+    def get_blueprint(self):
+        return [dge_drupalUsers_bl.dgeDrupalUsers]
+
