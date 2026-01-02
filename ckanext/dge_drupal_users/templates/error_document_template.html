@@ -1,15 +1,14 @@
 {% ckan_extends %}
 
-{% block subtitle %}{{ gettext('Error %(error_code)s', error_code=c.code[0] or c.code) }}{% endblock %}
+{% block subtitle %}{{ gettext('Error %(error_code)s', error_code=code) }}{% endblock %}
 
 {% block primary %}
   <article class="module">
     <div class="module-content">
-      {% if c.title %}
-        <h1> {{ c.title }} </h1>
+      {% if name %}
+      <h1>{{ name }}</h1>
       {% endif %}
-      {{ c.content}}
-      <br/><br/><br/>
+      {{ content }}
     </div>
   </article>
 {% endblock %}

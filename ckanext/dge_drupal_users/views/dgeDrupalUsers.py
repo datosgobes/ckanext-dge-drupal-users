@@ -15,10 +15,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# this is a namespace package
-try:
-    import pkg_resources
-    pkg_resources.declare_namespace(__name__)
-except ImportError:
-    import pkgutil
-    __path__ = pkgutil.extend_path(__path__, __name__)
+# -*- coding: utf-8 -*-
+from flask import Blueprint
+import ckan.plugins.toolkit as toolkit
+
+dgeDrupalUsers = Blueprint(
+    'dgeDrupalUsers',
+    __name__,
+)
+
+def unauthorized():
+     # Avoid loops
+    extra_vars = {u'code': [401], u'content': u'You are not authorized to access this page.', u'name': u'Access denied'}
+    return toolkit.render('error_document_template.html', extra_vars), 401
+
+dgeDrupalUsers.add_url_rule('/user_unauthorized', 'user_unauthorized', view_func=unauthorized)
